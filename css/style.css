@@ -283,7 +283,7 @@ button { font-family: inherit; cursor: pointer; }
   display: block;
   position: relative;
   margin: 18px 18px 0;
-  padding: 12px 56px 14px 22px;
+  padding: 12px 36px 14px 14px;
   background: linear-gradient(180deg, #1E5BD6 0%, #0F2E80 100%);
   color: #fff;
   border-radius: 12px;
@@ -292,27 +292,29 @@ button { font-family: inherit; cursor: pointer; }
     inset 0 1px 0 rgba(255,255,255,.30);
   text-align: center;
   transition: transform .15s ease, box-shadow .15s ease;
+  container-type: inline-size;
 }
 .btn-main:hover { transform: translateY(-2px); box-shadow: 0 14px 24px rgba(15,46,128,.50); }
 .btn-main:active { transform: translateY(0); }
 .btn-main .btn-sub {
   display: block;
-  font-size: 13px;
+  font-size: clamp(11px, 6cqi, 13px);
   font-weight: 600;
   opacity: .96;
   margin-bottom: 1px;
 }
 .btn-main .btn-main-text {
   display: block;
-  font-size: 21px;
+  font-size: clamp(13px, 8.5cqi, 21px);
   font-weight: 900;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 .btn-main .btn-arrow {
   position: absolute;
-  right: 18px; top: 50%;
+  right: 12px; top: 50%;
   transform: translateY(-50%);
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 1;
 }
