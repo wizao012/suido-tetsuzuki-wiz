@@ -18,11 +18,12 @@
     });
   }
 
-  // -------- Smooth scroll for anchor links --------
+  // -------- Smooth scroll for in-page anchor links --------
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener('click', (e) => {
       const id = a.getAttribute('href');
       if (!id || id === '#') return;
+      // Don't intercept modal close-anchors
       const target = document.querySelector(id);
       if (target) {
         e.preventDefault();
@@ -35,8 +36,55 @@
     });
   });
 
-  // -------- FAQ: ensure only one open at a time (optional) --------
-  // Native <details> already toggles; we just animate.
+  // -------- Modals --------
+  const openTriggers = document.querySelectorAll('[data-modal]');
+  let lastFocus = null;
+  function openModal(id) {
+    const modal = document.getElementById('modal-' + id);
+    if (!modal) return;
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    document.body.classList.add('modal-open');
+    const panel = modal.querySelector('.modal__panel');
+    if (panel) panel.scrollTop = 0;
+    const closeBtn = modal.querySelector('.modal__close');
+    if (closeBtn) closeBtn.focus({ preventScroll: true });
+  }
+  function closeModal(modal) {
+    if (!modal) return;
+    modal.hidden = true;
+    document.body.classList.remove('modal-open');
+    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  }
+  openTriggers.forEach((el) => {
+    el.addEventListener('click', (e) => {
+      const id = el.getAttribute('data-modal');
+      if (!id) return;
+      e.preventDefault();
+      openModal(id);
+    });
+  });
+  document.querySelectorAll('.modal').forEach((modal) => {
+    modal.addEventListener('click', (e) => {
+      if (e.target.matches('[data-close]') || e.target.closest('[data-close]')) {
+        // For CTA links that have data-close + href, allow navigation after close
+        const closer = e.target.closest('[data-close]');
+        if (closer && closer.tagName === 'A' && closer.getAttribute('href') && closer.getAttribute('href') !== '#') {
+          // close then navigate
+          closeModal(modal);
+          // smooth scroll handled by anchor listener
+          return;
+        }
+        e.preventDefault();
+        closeModal(modal);
+      }
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal:not([hidden])').forEach((m) => closeModal(m));
+    }
+  });
 
   // -------- Form validation --------
   const form = document.getElementById('app-form');
@@ -67,7 +115,7 @@
       }
     }
 
-    function validate(key, opts) {
+    function validate(key) {
       const val = (fields[key].value || '').trim();
       switch (key) {
         case 'date':
@@ -119,7 +167,6 @@
       btn.classList.add('loading');
       btn.disabled = true;
 
-      // Simulate submission
       setTimeout(() => {
         btn.classList.remove('loading');
         btn.disabled = false;
@@ -140,20 +187,42 @@
   // -------- Urgent bubble & sticky footer reveal on scroll --------
   const urgent = document.querySelector('.urgent');
   const bottomCta = document.querySelector('.bottom-cta');
-  function onScroll() {
-    const y = window.pageYOffset;
-    const show = y > 200;
-    if (urgent) urgent.style.opacity = show ? '1' : '0';
-    if (urgent) urgent.style.pointerEvents = show ? 'auto' : 'none';
-    if (bottomCta) bottomCta.style.transform = show ? 'translateY(0)' : 'translateY(110%)';
+
+  // JST 10:00 - 19:00 check
+  function isUrgentHours() {
+    const now = new Date();
+    // Convert current time to JST regardless of viewer timezone
+    const utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
+    const jst = new Date(utcMs + 9 * 60 * 60000);
+    const h = jst.getHours();
+    return h >= 10 && h < 19;
   }
-  if (urgent) urgent.style.transition = 'opacity .25s ease';
+  const inHours = isUrgentHours();
+  if (urgent && !inHours) {
+    urgent.style.display = 'none';
+  }
+
+  let urgentReady = false;
+  // Reveal urgent only after a delay AND after the user scrolls a bit
+  if (urgent && inHours) {
+    setTimeout(() => { urgentReady = true; updateFloaters(); }, 2200);
+  }
+
+  function updateFloaters() {
+    const y = window.pageYOffset;
+    const showFooter = y > 200;
+    if (bottomCta) bottomCta.style.transform = showFooter ? 'translateY(0)' : 'translateY(110%)';
+    if (urgent && urgentReady && inHours) {
+      const showUrgent = y > 240;
+      urgent.classList.toggle('is-shown', showUrgent);
+    }
+  }
   if (bottomCta) {
     bottomCta.style.transition = 'transform .25s ease';
     bottomCta.style.transform = 'translateY(110%)';
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  window.addEventListener('scroll', updateFloaters, { passive: true });
+  updateFloaters();
 
   // -------- Reveal-on-scroll --------
   const revealEls = document.querySelectorAll('.reveal');
