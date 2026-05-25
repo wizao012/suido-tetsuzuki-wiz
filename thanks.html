@@ -226,7 +226,20 @@
       <span class="brand-mark"><img src="images/icon-tap.png" alt="" /></span>
       <span class="brand-name">東京都 水道手続き窓口</span>
     </a>
+    <button class="hamburger" aria-label="メニューを開く" aria-controls="main-menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </header>
+
+  <nav class="menu" id="main-menu" aria-label="メインメニュー">
+    <ul>
+      <li><a href="index.html">ホーム</a></li>
+      <li><a href="index.html#form">使用開始のお申込み</a></li>
+      <li><a href="index.html#faq">よくあるご質問</a></li>
+      <li><a href="https://012grp.co.jp/company/corporate_profile" target="_blank" rel="noopener">運営会社情報</a></li>
+      <li><a href="https://012grp.co.jp/policy" target="_blank" rel="noopener">プライバシーポリシー</a></li>
+    </ul>
+  </nav>
 
   <main>
 
@@ -301,6 +314,8 @@
     window.dataLayer.push({ event: 'form_submit_thanks' });
   }
 </script>
+
+<script src="js/main.js"></script>
 
 </body>
 </html>
