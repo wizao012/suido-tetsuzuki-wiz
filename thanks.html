@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>お申込み完了｜東京都 水道手続き窓口</title>
+  <meta name="description" content="水道の使用開始手続きのお申込みありがとうございました。担当者よりお電話にてご連絡いたします。" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .thanks-fv {
+      padding: 40px 18px 28px;
+      background: url("images/fv-back.png") center top / cover no-repeat,
+                  linear-gradient(180deg, #EFF6FF 0%, #FFFFFF 100%);
+      text-align: center;
+    }
+    .thanks-mark {
+      width: 96px; height: 96px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      background: #fff;
+      display: grid; place-items: center;
+      box-shadow: 0 8px 22px rgba(30, 91, 214, .18);
+      position: relative;
+      animation: thanksPop .55s cubic-bezier(.34, 1.56, .64, 1);
+    }
+    .thanks-mark::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #2D7FF9 0%, #1E5BD6 100%);
+    }
+    .thanks-mark svg {
+      position: relative;
+      width: 52px;
+      height: 52px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .thanks-mark svg path {
+      stroke-dasharray: 60;
+      stroke-dashoffset: 60;
+      animation: thanksCheck .6s .25s ease forwards;
+    }
+    @keyframes thanksPop {
+      0%   { opacity: 0; transform: scale(.6); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes thanksCheck {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .thanks-title {
+      font-size: clamp(22px, 6.6vw, 28px);
+      font-weight: 900;
+      color: #0F2540;
+      margin: 0;
+      letter-spacing: 0.01em;
+      line-height: 1.3;
+    }
+    .thanks-lead {
+      font-size: clamp(13px, 3.6vw, 15px);
+      color: var(--color-text);
+      margin: 12px 0 0;
+      line-height: 1.8;
+      font-weight: 500;
+    }
+    .thanks-card {
+      margin: 22px 18px 0;
+      background: #fff;
+      border-radius: 18px;
+      padding: 22px 18px 22px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--color-border);
+    }
+    .thanks-card__title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 14px;
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--color-text);
+    }
+    .thanks-card__title::before {
+      content: "";
+      width: 4px;
+      height: 18px;
+      background: var(--color-primary);
+      border-radius: 2px;
+    }
+    .thanks-flow {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      counter-reset: flow;
+    }
+    .thanks-flow li {
+      position: relative;
+      padding: 10px 0 10px 42px;
+      counter-increment: flow;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--color-text);
+      font-weight: 500;
+      border-top: 1px dashed #D8E4F4;
+    }
+    .thanks-flow li:first-child { border-top: none; }
+    .thanks-flow li::before {
+      content: counter(flow);
+      position: absolute;
+      left: 0; top: 12px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--color-bg-pale);
+      color: var(--color-primary);
+      display: grid; place-items: center;
+      font-weight: 900;
+      font-size: 13px;
+    }
+    .thanks-flow li.is-current::before {
+      background: var(--color-primary);
+      color: #fff;
+      box-shadow: 0 0 0 4px rgba(30, 91, 214, .15);
+    }
+    .thanks-flow strong {
+      display: block;
+      font-size: 14.5px;
+      font-weight: 800;
+      margin-bottom: 2px;
+      color: var(--color-text);
+    }
+
+    .thanks-phone {
+      margin: 18px 18px 0;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 18px 14px 16px;
+      text-align: center;
+    }
+    .thanks-phone__label {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--color-text);
+      margin: 0;
+    }
+    .thanks-phone__desc {
+      font-size: 11.5px;
+      color: var(--color-text-sub);
+      margin: 4px 0 8px;
+      line-height: 1.5;
+    }
+    .thanks-phone__num {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: clamp(22px, 7vw, 28px);
+      font-weight: 900;
+      color: var(--color-primary);
+      letter-spacing: 0.01em;
+      margin: 0;
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+    .thanks-phone__icon {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: var(--color-bg-pale);
+      display: grid; place-items: center;
+      color: var(--color-primary);
+    }
+    .thanks-phone__icon svg { width: 20px; height: 20px; }
+    .thanks-phone__hours {
+      font-size: clamp(9px, 2.6vw, 12px);
+      color: var(--color-text-sub);
+      margin: 6px 0 0;
+      white-space: nowrap;
+    }
+
+    .thanks-note {
+      margin: 18px 18px 0;
+      padding: 14px 14px;
+      background: var(--color-urgent-bg);
+      border: 1px solid #FFD89C;
+      border-radius: 12px;
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: var(--color-text);
+    }
+    .thanks-note strong {
+      color: var(--color-urgent-text);
+      font-weight: 800;
+    }
+
+    .thanks-back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin: 22px 18px 28px;
+      padding: 14px;
+      background: #fff;
+      color: var(--color-primary);
+      border: 2px solid #B9D3F7;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .thanks-back:hover { transform: translateY(-2px); box-shadow: var(--shadow-card); }
+  </style>
+</head>
+<body>
+
+<div class="app" data-screen-label="01 サンクスページ">
+
+  <!-- ヘッダー -->
+  <header class="site-header" role="banner">
+    <a href="index.html" class="site-header__brand" aria-label="トップへ">
+      <span class="brand-mark"><img src="images/icon-tap.png" alt="" /></span>
+      <span class="brand-name">東京都 水道手続き窓口</span>
+    </a>
+    <button class="hamburger" aria-label="メニューを開く" aria-controls="main-menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <nav class="menu" id="main-menu" aria-label="メインメニュー">
+    <ul>
+      <li><a href="index.html">ホーム</a></li>
+      <li><a href="index.html#form">使用開始のお申込み</a></li>
+      <li><a href="index.html#faq">よくあるご質問</a></li>
+      <li><a href="https://012grp.co.jp/company/corporate_profile" target="_blank" rel="noopener">運営会社情報</a></li>
+      <li><a href="https://012grp.co.jp/policy" target="_blank" rel="noopener">プライバシーポリシー</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <section class="thanks-fv">
+      <div class="thanks-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40"><path d="M10 21 L17 28 L31 13" /></svg>
+      </div>
+      <h1 class="thanks-title">お申込みありがとう<br />ございました。</h1>
+      <p class="thanks-lead">
+        水道の使用開始手続きのお申込みを<br />
+        受け付けいたしました。
+      </p>
+    </section>
+
+    <!-- 今後の流れ -->
+    <section class="thanks-card">
+      <h2 class="thanks-card__title">この後の流れ</h2>
+      <ol class="thanks-flow">
+        <li class="is-current">
+          <strong>担当者よりお電話</strong>
+          ご入力いただいたお電話番号宛に、当窓口の担当者よりご連絡いたします。
+        </li>
+        <li>
+          <strong>内容のご確認</strong>
+          使用開始日や住所などの内容を、お電話にて確認させていただきます。
+        </li>
+        <li>
+          <strong>水道局へお取次ぎ</strong>
+          確認内容をもとに、当窓口が水道局へのお手続きを進めます。ご指定日より水道がご利用いただけます。
+        </li>
+      </ol>
+    </section>
+
+    <!-- 電話 -->
+    <section class="thanks-phone">
+      <p class="thanks-phone__label">お急ぎの方・内容修正のご希望はお電話で</p>
+      <p class="thanks-phone__desc">お申込み内容の変更・キャンセル等</p>
+      <a class="thanks-phone__num" href="tel:0800-000-0000">
+        <span class="thanks-phone__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.05 15.05 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"/></svg>
+        </span>
+        0800-000-0000
+      </a>
+      <p class="thanks-phone__hours">受付時間：10:00〜19:00（土日祝OK・年末年始を除く）</p>
+    </section>
+
+    <!-- お願い -->
+    <div class="thanks-note">
+      <strong>お電話に出られなかった方へ</strong><br />
+      担当者からのご連絡にお気づきになれなかった場合は、お手数ですが上記窓口までお電話にて折り返しご連絡をお願いいたします。お申込み内容を確認のうえ、改めてお手続きをご案内いたします。
+    </div>
+
+    <a href="index.html" class="thanks-back">
+      <span aria-hidden="true">‹</span>
+      トップページに戻る
+    </a>
+
+    <p class="foot-info">
+      本サイトは水道使用開始手続きの代理店窓口です。<br />
+      お客様の代理として各水道局への申込手続きを行います。<br />
+      © 東京都 水道手続き窓口
+    </p>
+  </main>
+
+</div>
+
+<!-- ▼ GTM / Google広告コンバージョンタグ挿入位置 -->
+<!-- ▼ Yahoo広告 コンバージョン測定タグ挿入位置 -->
+<script>
+  // コンバージョン発火のフック
+  if (window.dataLayer) {
+    window.dataLayer.push({ event: 'form_submit_thanks' });
+  }
+</script>
+
+<script src="js/main.js"></script>
+
+</body>
+</html>
