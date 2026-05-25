@@ -2,6 +2,62 @@
 (function () {
   'use strict';
 
+  // -------- Auto-fit text to container width --------
+  // Adjusts font-size of elements with [data-autofit] so the text fits
+  // its container in a single line. Re-runs on resize.
+  function autoFitText() {
+    document.querySelectorAll('[data-autofit]').forEach((el) => {
+      const parent = el.parentElement;
+      if (!parent) return;
+      // Available width = parent inline content width minus siblings minus gaps
+      const parentStyle = getComputedStyle(parent);
+      const parentWidth = parent.clientWidth
+        - parseFloat(parentStyle.paddingLeft || 0)
+        - parseFloat(parentStyle.paddingRight || 0);
+      // Subtract widths of sibling elements + grid/flex gap
+      let siblingTotal = 0;
+      let gap = 0;
+      if (parentStyle.display.includes('grid') || parentStyle.display.includes('flex')) {
+        gap = parseFloat(parentStyle.columnGap || parentStyle.gap || 0) || 0;
+      }
+      Array.from(parent.children).forEach((c) => {
+        if (c !== el) {
+          siblingTotal += c.getBoundingClientRect().width + gap;
+        }
+      });
+      const avail = Math.max(0, parentWidth - siblingTotal - 4);
+
+      // Binary search for largest font-size that fits without overflow
+      const MIN = 16, MAX = 22;
+      let lo = MIN, hi = MAX, best = MIN;
+      el.style.whiteSpace = 'nowrap';
+      el.style.letterSpacing = '-0.02em';
+      for (let i = 0; i < 12; i++) {
+        const mid = (lo + hi) / 2;
+        el.style.fontSize = mid + 'px';
+        if (el.scrollWidth <= avail) {
+          best = mid;
+          lo = mid;
+        } else {
+          hi = mid;
+        }
+        if (hi - lo < 0.2) break;
+      }
+      el.style.fontSize = best.toFixed(1) + 'px';
+    });
+  }
+  // Run after layout settles
+  if (document.readyState !== 'loading') {
+    requestAnimationFrame(autoFitText);
+  } else {
+    window.addEventListener('DOMContentLoaded', () => requestAnimationFrame(autoFitText));
+  }
+  window.addEventListener('resize', () => {
+    clearTimeout(window.__autofitTimer);
+    window.__autofitTimer = setTimeout(autoFitText, 80);
+  });
+  window.addEventListener('load', () => requestAnimationFrame(autoFitText));
+
   // -------- Hamburger menu --------
   const hamburger = document.querySelector('.hamburger');
   const menu = document.getElementById('main-menu');
