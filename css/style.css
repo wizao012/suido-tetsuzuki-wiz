@@ -56,6 +56,7 @@ button { font-family: inherit; cursor: pointer; }
   background: var(--color-bg);
   min-height: 100vh;
   position: relative;
+  padding-top: var(--header-h);
   padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom));
   box-shadow: 0 0 40px rgba(30, 91, 214, 0.06);
   overflow: hidden;
@@ -65,8 +66,12 @@ button { font-family: inherit; cursor: pointer; }
    Header
    ========================================================== */
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
   z-index: 50;
   background: #fff;
   height: var(--header-h);
@@ -116,18 +121,19 @@ button { font-family: inherit; cursor: pointer; }
 
 /* Mobile menu */
 .menu {
-  position: absolute;
+  position: fixed;
   top: var(--header-h);
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  width: 100%;
+  max-width: 480px;
   background: #fff;
   box-shadow: 0 12px 20px rgba(0,0,0,.08);
-  transform: translateY(-150%);
   transition: transform .25s ease;
   z-index: 60;
   border-top: 1px solid var(--color-border);
 }
-.menu.open { transform: translateY(0); }
+.menu.open { transform: translate(-50%, 0); }
 .menu ul { list-style: none; margin: 0; padding: 8px 0; }
 .menu li a {
   display: block;
