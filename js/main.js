@@ -168,19 +168,12 @@
       btn.disabled = true;
 
       setTimeout(() => {
-        btn.classList.remove('loading');
-        btn.disabled = false;
         if (window.dataLayer) {
           window.dataLayer.push({ event: 'form_submit' });
         }
-        const ok = document.getElementById('form-success');
-        if (ok) {
-          ok.classList.add('show');
-          const r = ok.getBoundingClientRect();
-          window.scrollTo({ top: r.top + window.pageYOffset - 100, behavior: 'smooth' });
-        }
-        form.reset();
-      }, 900);
+        // サンクスページへ遷移
+        window.location.href = 'thanks.html';
+      }, 700);
     });
   }
 
